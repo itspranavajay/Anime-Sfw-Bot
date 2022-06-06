@@ -135,7 +135,7 @@ async def video(client, message):
     filters.text
     & filters.reply
     & filters.regex(regex_photo),
-    group=image_group,
+    group=photo_group,
 )                              
 async def image(client, message): 
     Msg = message.text
