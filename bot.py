@@ -8,6 +8,8 @@ import asyncio
 
 import os
 
+meta = META()
+
 video_group = 3
 photo_group = 4
 
