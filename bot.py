@@ -71,6 +71,7 @@ async def levelsystem(_, message):
         await app.send_message(LOG, f"#SFW-DISABLE\nCHAT -  @{message.chat.username}\n ADMIN - [{message.from_user.first_name}](tg://user?id={message.from_user.id})")
 
 
+
 @app.on_message(
     filters.text
     & filters.reply
@@ -104,7 +105,7 @@ async def video(client, message):
                     input = {"user": replyuser, "point": 1}
                     mainuser.insert_one(input)
                     t = n["time"] + 1
-                    other.update_one({"user": user}, {
+                    otheruser.update_one({"user": user}, {
                     "$set": {"time": t}})
                     await message.reply_video(video=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} 1 times and {message.from_user.mention} has {Msg} others {t} times")           
             else:
@@ -125,8 +126,8 @@ async def video(client, message):
                     x = x['url']
                     mainuser.update_one({"user": replyuser}, {
                         "$set": {"time": t}})            
-                    other.update_one({"user": user}, {
-                        "$set": {"time": t2}})
+                    otheruser.update_one({"user": user}, {
+                        "$set": {"time": t1}})
                     time = t
                     await message.reply_video(video=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} {time} times and {message.from_user.mention} has {Msg} others {t1} times")
                 
@@ -164,7 +165,7 @@ async def image(client, message):
                     input = {"user": replyuser, "point": 1}
                     mainuser.insert_one(input)
                     t = n["time"] + 1
-                    other.update_one({"user": user}, {
+                    otheruser.update_one({"user": user}, {
                     "$set": {"time": t}})
                     await message.reply_photo(photo=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} 1 times and {message.from_user.mention} has {Msg} others {t} times")           
             else:
@@ -185,8 +186,8 @@ async def image(client, message):
                     x = x['url']
                     mainuser.update_one({"user": replyuser}, {
                         "$set": {"time": t}})            
-                    other.update_one({"user": user}, {
-                        "$set": {"time": t2}})
+                    otheruser.update_one({"user": user}, {
+                        "$set": {"time": t1}})
                     time = t
                     await message.reply_photo(photo=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} {time} times and {message.from_user.mention} has {Msg} others {t1} times")
                 
@@ -201,7 +202,7 @@ async def hi(client, message):
     toggle = sfwdb["SfwDb"]["Sfw"] 
     mainuser = sfwdb["SfwDb"][f"{Msg}"]
     otheruser = sfwdb["UserSfwDb"][f"{Msg}"]    
-    user = message.from_user.id
+    user = message.reply_to_message.from_user.id
     is_sfw = toggle.find_one({"chat_id": message.chat.id})
     if is_sfw:
         k = mainuser.find_one({"user": user})
