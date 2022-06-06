@@ -1,0 +1,8 @@
+pyrogram==1.4.16
+pymongo
+requests
+metavoidapi
+aiohttp
+asyncio
+tgcrypto==1.2.2
+dnspython
