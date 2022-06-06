@@ -134,7 +134,7 @@ async def video(client, message):
 @app.on_message(
     filters.text
     & filters.reply
-    & filters.regex(regex_image),
+    & filters.regex(regex_photo),
     group=image_group,
 )                              
 async def image(client, message): 
