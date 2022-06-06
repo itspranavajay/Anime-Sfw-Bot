@@ -64,11 +64,11 @@ async def levelsystem(_, message):
     if not is_sfw:
         toggle.insert_one({"chat_id": message.chat.id})
         await message.reply_text("Sfw System Enable")
-        await app.send_message(LOG, f"#SFW-ENABLE\nCHAT -  @{message.chat.username}\n ADMIN - [{message.from_user.first_name}](tg://user?id={message.from_user.id}))
+        await app.send_message(LOG, f"#SFW-ENABLE\nCHAT -  @{message.chat.username}\n ADMIN - [{message.from_user.first_name}](tg://user?id={message.from_user.id})")
     else:
         toggle.delete_one({"chat_id": message.chat.id})
-        await message.reply_text("sfw System Disable")
-        await app.send_message(LOG, f"#SFW-DISABLE\nCHAT -  @{message.chat.username}\n ADMIN - [{message.from_user.first_name}](tg://user?id={message.from_user.id}))
+        await message.reply_text("Sfw System Disable")
+        await app.send_message(LOG, f"#SFW-DISABLE\nCHAT -  @{message.chat.username}\n ADMIN - [{message.from_user.first_name}](tg://user?id={message.from_user.id})")
 
 
 @app.on_message(
