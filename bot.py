@@ -88,34 +88,35 @@ async def video(client, message):
     user = message.from_user.id
     is_sfw = toggle.find_one({"chat_id": message.chat.id})
     if is_sfw:
-        k = mainuser.find_one({"user": replyuser})
-        n = otheruser.find_one({"user": user})
+        k = mainuser.find_one({"user": replyuser, "chat_id": message.chat.id})
+        n = otheruser.find_one({"user": user, "chat_id": message.chat.id})
 
         if not message.reply_to_message.from_user.is_bot:
             if k is None:             
                 x = requests.get(f"https://api.waifu.pics/sfw/{Msg}").json()
                 x = x['url']
                 if not n:
-                    input = {"user": replyuser, "time": 1}
-                    input1 = {"user": user, "time": 1}
+                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
+                    input1 = {"user": user, "chat_id: message.chat.id, "time": 1}
                     mainuser.insert_one(input)
                     otheruser.insert_one(input1)
                     await message.reply_video(video=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} 1 times and {message.from_user.mention} has {Msg} others 1 times")
                 if n:
-                    input = {"user": replyuser, "point": 1}
-                    mainuser.insert_one(input)
+                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
+                    mainuser.insert_one(input)            
+                    
                     t = n["time"] + 1
-                    otheruser.update_one({"user": user}, {
-                    "$set": {"time": t}})
+                    otheruser.update_one({"user": user, "chat_id": message.chat.id}, {
+                        "$set": {"time": t}})
                     await message.reply_video(video=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} 1 times and {message.from_user.mention} has {Msg} others {t} times")           
             else:
                 if not n:                
                     t = k["time"] + 1
                     x = requests.get(f"https://api.waifu.pics/sfw/{Msg}").json()
                     x = x['url'] 
-                    input = {"user": replyuser, "time": 1}
+                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
                     mainuser.insert_one(input)            
-                    otheruser.update_one({"user": fuser}, {
+                    otheruser.update_one({"user": user, "chat_id": message.chat.id}, {
                         "$set": {"time": t}})
                     time = t
                     await message.reply_video(video=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} {time} times and {message.from_user.mention} has {Msg} others 1 times")
@@ -124,9 +125,9 @@ async def video(client, message):
                     t1 = n["time"] + 1
                     x = requests.get(f"https://api.waifu.pics/sfw/{Msg}").json()
                     x = x['url']
-                    mainuser.update_one({"user": replyuser}, {
+                    mainuser.update_one({"user": replyuser, "chat_id": message.chat.id}, {
                         "$set": {"time": t}})            
-                    otheruser.update_one({"user": user}, {
+                    otheruser.update_one({"user": user, "chat_id": message.chat.id}, {
                         "$set": {"time": t1}})
                     time = t
                     await message.reply_video(video=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} {time} times and {message.from_user.mention} has {Msg} others {t1} times")
@@ -148,34 +149,35 @@ async def image(client, message):
     user = message.from_user.id
     is_sfw = toggle.find_one({"chat_id": message.chat.id})
     if is_sfw:
-        k = mainuser.find_one({"user": replyuser})
-        n = otheruser.find_one({"user": user})
+        k = mainuser.find_one({"user": replyuser, "chat_id": message.chat.id})
+        n = otheruser.find_one({"user": user, "chat_id": message.chat.id})
 
         if not message.reply_to_message.from_user.is_bot:
             if k is None:             
                 x = requests.get(f"https://api.waifu.pics/sfw/{Msg}").json()
                 x = x['url']
                 if not n:
-                    input = {"user": replyuser, "time": 1}
-                    input1 = {"user": user, "time": 1}
+                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
+                    input1 = {"user": user, "chat_id: message.chat.id, "time": 1}
                     mainuser.insert_one(input)
                     otheruser.insert_one(input1)
                     await message.reply_photo(photo=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} 1 times and {message.from_user.mention} has {Msg} others 1 times")
                 if n:
-                    input = {"user": replyuser, "point": 1}
-                    mainuser.insert_one(input)
+                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
+                    mainuser.insert_one(input)            
+                    otheruser.update_one({"user": user, "chat_id": message.chat.id}, {
+                        "$set": {"time": t}})
                     t = n["time"] + 1
-                    otheruser.update_one({"user": user}, {
-                    "$set": {"time": t}})
+                    
                     await message.reply_photo(photo=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} 1 times and {message.from_user.mention} has {Msg} others {t} times")           
             else:
                 if not n:                
                     t = k["time"] + 1
                     x = requests.get(f"https://api.waifu.pics/sfw/{Msg}").json()
                     x = x['url'] 
-                    input = {"user": replyuser, "time": 1}
+                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
                     mainuser.insert_one(input)            
-                    otheruser.update_one({"user": fuser}, {
+                    otheruser.update_one({"user": user, "chat_id": message.chat.id}, {
                         "$set": {"time": t}})
                     time = t
                     await message.reply_photo(photo=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} {time} times and {message.from_user.mention} has {Msg} others 1 times")
@@ -184,9 +186,9 @@ async def image(client, message):
                     t1 = n["time"] + 1
                     x = requests.get(f"https://api.waifu.pics/sfw/{Msg}").json()
                     x = x['url']
-                    mainuser.update_one({"user": replyuser}, {
+                    mainuser.update_one({"user": replyuser, "chat_id": message.chat.id}, {
                         "$set": {"time": t}})            
-                    otheruser.update_one({"user": user}, {
+                    otheruser.update_one({"user": user, "chat_id": message.chat.id}, {
                         "$set": {"time": t1}})
                     time = t
                     await message.reply_photo(photo=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} {time} times and {message.from_user.mention} has {Msg} others {t1} times")
@@ -205,8 +207,8 @@ async def hi(client, message):
     user = message.reply_to_message.from_user.id
     is_sfw = toggle.find_one({"chat_id": message.chat.id})
     if is_sfw:
-        k = mainuser.find_one({"user": user})
-        n = otheruser.find_one({"user": user})
+        k = mainuser.find_one({"user": replyuser, "chat_id": message.chat.id})
+        n = otheruser.find_one({"user": user, "chat_id": message.chat.id})
         if not message.reply_to_message.from_user.is_bot:
             if k is None:
                 if not n:
