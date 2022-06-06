@@ -102,7 +102,7 @@ async def video(client, message):
                     await message.reply_video(video=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} 1 times and {message.from_user.mention} has {Msg} others 1 times")
                 if n:
                     input = {"user": replyuser, "point": 1}
-                    mainuser.insert_one(new)
+                    mainuser.insert_one(input)
                     t = n["time"] + 1
                     other.update_one({"user": user}, {
                     "$set": {"time": t}})
@@ -162,7 +162,7 @@ async def image(client, message):
                     await message.reply_photo(photo=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} 1 times and {message.from_user.mention} has {Msg} others 1 times")
                 if n:
                     input = {"user": replyuser, "point": 1}
-                    mainuser.insert_one(new)
+                    mainuser.insert_one(input)
                     t = n["time"] + 1
                     other.update_one({"user": user}, {
                     "$set": {"time": t}})
