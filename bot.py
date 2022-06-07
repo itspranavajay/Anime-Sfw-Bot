@@ -96,7 +96,7 @@ async def video(client, message):
                 x = requests.get(f"https://api.waifu.pics/sfw/{Msg}").json()
                 x = x['url']
                 if not n:
-                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
+                    input = {"user": replyuser, "chat_id": message.chat.id, "time": 1}
                     input1 = {"user": user, "chat_id": message.chat.id, "time": 1}
                     mainuser.insert_one(input)
                     otheruser.insert_one(input1)
