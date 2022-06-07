@@ -97,12 +97,12 @@ async def video(client, message):
                 x = x['url']
                 if not n:
                     input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
-                    input1 = {"user": user, "chat_id: message.chat.id, "time": 1}
+                    input1 = {"user": user, "chat_id": message.chat.id, "time": 1}
                     mainuser.insert_one(input)
                     otheruser.insert_one(input1)
                     await message.reply_video(video=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} 1 times and {message.from_user.mention} has {Msg} others 1 times")
                 if n:
-                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
+                    input = {"user": replyuser, "chat_id": message.chat.id, "time": 1}
                     mainuser.insert_one(input)            
                     
                     t = n["time"] + 1
@@ -114,7 +114,7 @@ async def video(client, message):
                     t = k["time"] + 1
                     x = requests.get(f"https://api.waifu.pics/sfw/{Msg}").json()
                     x = x['url'] 
-                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
+                    input = {"user": replyuser, "chat_id": message.chat.id, "time": 1}
                     mainuser.insert_one(input)            
                     otheruser.update_one({"user": user, "chat_id": message.chat.id}, {
                         "$set": {"time": t}})
@@ -157,13 +157,13 @@ async def image(client, message):
                 x = requests.get(f"https://api.waifu.pics/sfw/{Msg}").json()
                 x = x['url']
                 if not n:
-                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
-                    input1 = {"user": user, "chat_id: message.chat.id, "time": 1}
+                    input = {"user": replyuser, "chat_id": message.chat.id, "time": 1}
+                    input1 = {"user": user, "chat_id": message.chat.id, "time": 1}
                     mainuser.insert_one(input)
                     otheruser.insert_one(input1)
                     await message.reply_photo(photo=x, caption=f"{message.from_user.mention} is giving {message.reply_to_message.from_user.mention} a {Msg}!\n {message.reply_to_message.from_user.mention} has been {Msg} 1 times and {message.from_user.mention} has {Msg} others 1 times")
                 if n:
-                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
+                    input = {"user": replyuser, "chat_id": message.chat.id, "time": 1}
                     mainuser.insert_one(input)            
                     otheruser.update_one({"user": user, "chat_id": message.chat.id}, {
                         "$set": {"time": t}})
@@ -175,7 +175,7 @@ async def image(client, message):
                     t = k["time"] + 1
                     x = requests.get(f"https://api.waifu.pics/sfw/{Msg}").json()
                     x = x['url'] 
-                    input = {"user": replyuser, "chat_id: message.chat.id, "time": 1}
+                    input = {"user": replyuser, "chat_id": message.chat.id, "time": 1}
                     mainuser.insert_one(input)            
                     otheruser.update_one({"user": user, "chat_id": message.chat.id}, {
                         "$set": {"time": t}})
